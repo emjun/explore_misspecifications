@@ -7,6 +7,8 @@ authors = ["Eunice Jun <eunice.m.jun@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
 boba = "^1.1.2"
+scipy = "^1.7.1"
+boba-visualizer = "^1.1.1"
 
 [tool.poetry.dev-dependencies]
 
