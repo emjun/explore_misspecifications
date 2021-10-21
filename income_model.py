@@ -1,79 +1,62 @@
 """
-Sample dataset and analysis of Pew Research Center data
+Analyze Income dataset from Pew Research Center data
+Preprocess script: income_preprocess.py
 """
 import pandas as pd
 import os
 
+# --- (BOBA_CONFIG)
+{
+  "graph": [
+    "INTERACTION->FIXED->MODEL"
+  ],
+  "decisions": [{"var": "fixed", "options": [[], ["community_numeric"], ["edu_numeric"], ["student_numeric"], ["major_numeric"], ["employment_numeric"], ["income_numeric"], ["community_numeric", "edu_numeric"], ["community_numeric", "student_numeric"], ["community_numeric", "major_numeric"], ["community_numeric", "employment_numeric"], ["community_numeric", "income_numeric"], ["edu_numeric", "student_numeric"], ["edu_numeric", "major_numeric"], ["edu_numeric", "employment_numeric"], ["edu_numeric", "income_numeric"], ["student_numeric", "major_numeric"], ["student_numeric", "employment_numeric"], ["student_numeric", "income_numeric"], ["major_numeric", "employment_numeric"], ["major_numeric", "income_numeric"], ["employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric"], ["community_numeric", "edu_numeric", "major_numeric"], ["community_numeric", "edu_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric"], ["community_numeric", "student_numeric", "employment_numeric"], ["community_numeric", "student_numeric", "income_numeric"], ["community_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "major_numeric", "income_numeric"], ["community_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric"], ["edu_numeric", "student_numeric", "employment_numeric"], ["edu_numeric", "student_numeric", "income_numeric"], ["edu_numeric", "major_numeric", "employment_numeric"], ["edu_numeric", "major_numeric", "income_numeric"], ["edu_numeric", "employment_numeric", "income_numeric"], ["student_numeric", "major_numeric", "employment_numeric"], ["student_numeric", "major_numeric", "income_numeric"], ["student_numeric", "employment_numeric", "income_numeric"], ["major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "student_numeric", "major_numeric", "income_numeric"], ["community_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"]]}, {"var": "interaction", "options": [["community_numeric", "edu_numeric"], ["community_numeric", "student_numeric"], ["community_numeric", "major_numeric"], ["community_numeric", "employment_numeric"], ["community_numeric", "income_numeric"], ["edu_numeric", "student_numeric"], ["edu_numeric", "major_numeric"], ["edu_numeric", "employment_numeric"], ["edu_numeric", "income_numeric"], ["student_numeric", "major_numeric"], ["student_numeric", "employment_numeric"], ["student_numeric", "income_numeric"], ["major_numeric", "employment_numeric"], ["major_numeric", "income_numeric"], ["employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric"], ["community_numeric", "edu_numeric", "major_numeric"], ["community_numeric", "edu_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric"], ["community_numeric", "student_numeric", "employment_numeric"], ["community_numeric", "student_numeric", "income_numeric"], ["community_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "major_numeric", "income_numeric"], ["community_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric"], ["edu_numeric", "student_numeric", "employment_numeric"], ["edu_numeric", "student_numeric", "income_numeric"], ["edu_numeric", "major_numeric", "employment_numeric"], ["edu_numeric", "major_numeric", "income_numeric"], ["edu_numeric", "employment_numeric", "income_numeric"], ["student_numeric", "major_numeric", "employment_numeric"], ["student_numeric", "major_numeric", "income_numeric"], ["student_numeric", "employment_numeric", "income_numeric"], ["major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "student_numeric", "major_numeric", "income_numeric"], ["community_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "employment_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["edu_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"], ["community_numeric", "edu_numeric", "student_numeric", "major_numeric", "employment_numeric", "income_numeric"], []]}],
+  "before_execute": "cp ../../data.csv ./code/"
+}
+# --- (END)
+
 data_repo_path = "data/"
 
-if __name__ == "__main__": 
-    # Load data
-    filename = "income_dataset.csv"
-    filepath = os.path.join(data_repo_path, filename)    
-    df = pd.read_csv(filepath)
+if __name__ == '__main__':
+  # Read data
+  filename = "income_dataset_clean.csv"
+  filepath = os.path.join(data_repo_path, filename)    
+  df = pd.read_csv(filepath)
 
-    # Wrangle data
-    # Age
-    # Filter out data where Age == "Don't know/Refused"
-    df.sort_values(by=['Age'], inplace=True)
-    df = df.query(f"Age != \"Don\'t know/Refused\"")
+  # Author model 
+  # Key variables of interest: IV - Education, DV - Income
 
-    # Community
-    # 0 = Rural, 1 = Suburban, 2 = Urban
-    df.sort_values(by=['Community'], inplace=True)
-    df['community_numeric'] = df['Community'].rank(method='dense', na_option='bottom')
+  # --- (INTERACTION)
+  # Try all combinations of interaction effects
+  # Generate superset of interaction terms
+  ixn_terms = {{interaction}}
 
-    # Highest Edu Completed 
-    df.loc[df['Highest Edu Completed'] == "High school graduate (Grade 12 with diploma or GED certificate)", "Highest Edu Completed"] = 0
-    df.loc[df['Highest Edu Completed'] == "Some college-no degree (includes some community college)", "Highest Edu Completed"] = 1
-    df.loc[df['Highest Edu Completed'] == "Two year associate degree from a college or university", "Highest Edu Completed"] = 2
-    df.loc[df['Highest Edu Completed'] == "Four year college or university degree/Bachelor's degree", "Highest Edu Completed"] = 3
-    df.loc[df['Highest Edu Completed'] == "Some postgraduate or professional schooling-no postgraduate degree", "Highest Edu Completed"] = 4
-    df.loc[df['Highest Edu Completed'] == "Postgraduate or professional degree", "Highest Edu Completed"] = 5
-    df['edu_numeric'] = df['Highest Edu Completed'].astype('int')
-    
-    # Current Student Status
-    df = df[df['Current Student Status'].notnull()] # Drop nan
-    df = df[df['Current Student Status'] != 'Refused'] # Drop 'Refused'
-    # 0 = No, 1 = Yes
-    df.sort_values(by=['Current Student Status'], inplace=True)
-    df['student_numeric'] = df['Current Student Status'].rank(method='dense', na_option='bottom')
+  ixn_terms_list = list()
+  for term in ixn_terms: 
+    ixn = '*'.join(term)
+    ixn_terms_list.append(ixn)
 
-    # Major
-    df = df[df['Major'].notnull()] # Drop nan
-    df['major_numeric'] = df['Major'].rank(method='dense', na_option='bottom')
+  ixn_terms_formula = '+'.join(ixn_terms_list)
 
-    # Employment
-    df = df.query(f"Employment != \"Don\'t know/Refused\"")
-    # 0 = Not employed, Retired, Disabled; 1 = Part-time; 2 = Full-time
-    df.loc[df['Employment'] == "Not employed", "Employment"] = 0
-    df.loc[df['Employment'] == "Retired", "Employment"] = 0
-    df.loc[df['Employment'] == "Disabled", "Employment"] = 0
-    df.loc[df['Employment'] == "Part-time", "Employment"] = 1
-    df.loc[df['Employment'] == "Full-time", "Employment"] = 2
-    df['employment_numeric'] = df['Employment'].astype('int')
+  # --- (FIXED)
+  # Try all combinations of fixed effects
+  # Generate superset of variables --> These are considered the options
+  fixed_terms = {{fixed}}
+  
+  fixed_terms_formula = '+'.join(fixed_terms)
 
-    # SKIP Marital Status
+  # --- (MODEL)
+  formula = 'income_numeric ~ ' + fixed_terms_formula + ixn_terms_formula
+  # TODO: Start with just linear regression 
+  lm = smf.ols(formula, data=df).fit()
+  # table = sm.stats.anova_lm(lm, typ=2)
+  # print(table)
+  results = lm.fit()
+  print(results)
+  
 
-    # SKIP Housing
-
-    # Income
-    df = df.query(f"Income != \"Don\'t know/Refused\"")
-    df['Income'].rank(method='dense', na_option='bottom')
-
-    df.loc[df['Income'] == "Less than $10K", "Income"] = 0
-    df.loc[df['Income'] == "$10K to under $20K", "Income"] = 1
-    df.loc[df['Income'] == "$20K to under $30K", "Income"] = 2
-    df.loc[df['Income'] == "$30K to under $40K", "Income"] = 3
-    df.loc[df['Income'] == "$40K to under $50K", "Income"] = 4
-    df.loc[df['Income'] == "$50K to under $75K", "Income"] = 5
-    df.loc[df['Income'] == "$75K to under $100K", "Income"] = 6
-    df.loc[df['Income'] == "$100K to under $150", "Income"] = 7
-    df.loc[df['Income'] == "$150K or more", "Income"] = 8
-    df['income_numeric'] = df['Income'].astype('int')
-
-    # Create and display correlation matrix
-    corr_matrix = df.corr()
-    print(corr_matrix)
-
-    # Author model 
+  ## Modeling script
+  # Read in clean data
+  # Decision points
+  # Execute model and print table of results  
+  # Q: How to call different modeling lines of code depending on family/link functions?
