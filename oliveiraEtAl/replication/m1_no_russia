@@ -1,0 +1,134 @@
+All M1 models:
+pr_questions ~ GNI+Internet+English+IDV
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:           pr_questions   R-squared:                       0.547
+Model:                            OLS   Adj. R-squared:                  0.507
+Method:                 Least Squares   F-statistic:                     13.58
+Date:                Mon, 25 Oct 2021   Prob (F-statistic):           2.43e-07
+Time:                        10:33:26   Log-Likelihood:                 79.065
+No. Observations:                  50   AIC:                            -148.1
+Df Residuals:                      45   BIC:                            -138.6
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.2657      0.064      4.183      0.000       0.138       0.394
+GNI        -2.537e-07   5.21e-07     -0.487      0.629    -1.3e-06    7.96e-07
+Internet       0.0004      0.000      0.776      0.442      -0.001       0.001
+English        0.0037      0.001      2.554      0.014       0.001       0.007
+IDV            0.0009      0.001      1.744      0.088      -0.000       0.002
+==============================================================================
+Omnibus:                        1.408   Durbin-Watson:                   1.807
+Prob(Omnibus):                  0.495   Jarque-Bera (JB):                0.656
+Skew:                          -0.181   Prob(JB):                        0.720
+Kurtosis:                       3.428   Cond. No.                     2.94e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.94e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+pr_answers ~ GNI+Internet+English+IDV
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             pr_answers   R-squared:                       0.618
+Model:                            OLS   Adj. R-squared:                  0.584
+Method:                 Least Squares   F-statistic:                     18.22
+Date:                Mon, 25 Oct 2021   Prob (F-statistic):           5.80e-09
+Time:                        10:33:26   Log-Likelihood:                 73.481
+No. Observations:                  50   AIC:                            -137.0
+Df Residuals:                      45   BIC:                            -127.4
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.2440      0.071      3.435      0.001       0.101       0.387
+GNI         2.052e-07   5.83e-07      0.352      0.726   -9.68e-07    1.38e-06
+Internet       0.0007      0.001      1.249      0.218      -0.000       0.002
+English        0.0029      0.002      1.793      0.080      -0.000       0.006
+IDV            0.0013      0.001      2.231      0.031       0.000       0.003
+==============================================================================
+Omnibus:                        3.615   Durbin-Watson:                   2.008
+Prob(Omnibus):                  0.164   Jarque-Bera (JB):                2.539
+Skew:                          -0.465   Prob(JB):                        0.281
+Kurtosis:                       3.596   Cond. No.                     2.94e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.94e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+pr_comments ~ GNI+Internet+English+IDV
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            pr_comments   R-squared:                       0.746
+Model:                            OLS   Adj. R-squared:                  0.723
+Method:                 Least Squares   F-statistic:                     33.01
+Date:                Mon, 25 Oct 2021   Prob (F-statistic):           7.33e-13
+Time:                        10:33:27   Log-Likelihood:                 90.028
+No. Observations:                  50   AIC:                            -170.1
+Df Residuals:                      45   BIC:                            -160.5
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -0.0396      0.051     -0.776      0.442      -0.142       0.063
+GNI         1.072e-07   4.18e-07      0.256      0.799   -7.36e-07     9.5e-07
+Internet       0.0008      0.000      2.059      0.045    1.77e-05       0.002
+English        0.0034      0.001      2.869      0.006       0.001       0.006
+IDV            0.0010      0.000      2.416      0.020       0.000       0.002
+==============================================================================
+Omnibus:                        2.945   Durbin-Watson:                   1.848
+Prob(Omnibus):                  0.229   Jarque-Bera (JB):                1.998
+Skew:                          -0.446   Prob(JB):                        0.368
+Kurtosis:                       3.404   Cond. No.                     2.94e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.94e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+pr_editions ~ GNI+Internet+English+IDV
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            pr_editions   R-squared:                       0.761
+Model:                            OLS   Adj. R-squared:                  0.740
+Method:                 Least Squares   F-statistic:                     35.82
+Date:                Mon, 25 Oct 2021   Prob (F-statistic):           1.87e-13
+Time:                        10:33:27   Log-Likelihood:                 129.99
+No. Observations:                  50   AIC:                            -250.0
+Df Residuals:                      45   BIC:                            -240.4
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -0.0014      0.023     -0.063      0.950      -0.048       0.045
+GNI         1.078e-07   1.88e-07      0.573      0.570   -2.71e-07    4.87e-07
+Internet       0.0003      0.000      1.682      0.099   -5.82e-05       0.001
+English        0.0008      0.001      1.554      0.127      -0.000       0.002
+IDV            0.0008      0.000      3.987      0.000       0.000       0.001
+==============================================================================
+Omnibus:                        0.134   Durbin-Watson:                   1.929
+Prob(Omnibus):                  0.935   Jarque-Bera (JB):                0.342
+Skew:                           0.001   Prob(JB):                        0.843
+Kurtosis:                       2.595   Cond. No.                     2.94e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 2.94e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
++++++ END M1 +++++
